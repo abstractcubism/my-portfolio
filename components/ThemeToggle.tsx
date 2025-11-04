@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 
 const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
@@ -14,14 +14,14 @@ const ThemeToggle = () => {
 
   return (
     <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+      className="group p-2 rounded-full hover-theme-bg transition-colors duration-300 text-[var(--foreground)] outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
       aria-label="Toggle Theme"
     >
-      {theme === 'dark' ? (
-        <SunIcon className="w-6 h-6 text-white" />
+      {resolvedTheme === 'dark' ? (
+        <SunIcon className="w-6 h-6 text-[var(--foreground)] transition-transform transition-colors duration-300 group-hover:rotate-12 group-hover:scale-110 group-hover:text-indigo-400 drop-shadow-sm group-hover:drop-shadow" />
       ) : (
-        <MoonIcon className="w-6 h-6 text-black" />
+        <MoonIcon className="w-6 h-6 text-[var(--foreground)] transition-transform transition-colors duration-300 group-hover:-rotate-12 group-hover:scale-110 group-hover:text-indigo-600 drop-shadow-sm group-hover:drop-shadow" />
       )}
     </button>
   );

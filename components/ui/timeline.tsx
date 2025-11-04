@@ -1,4 +1,8 @@
 "use client";
+
+// Timeline Component used and modified from Aceternity UI
+// Link: ui.aceternity.com/components/timeline
+
 import { useScroll, useTransform, motion } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -29,34 +33,37 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   return (
     <div
-      className="w-full bg-black font-sans md:px-10"
+      className="w-full bg-[var(--background)] text-[var(--foreground)] font-sans md:px-10 transition-colors duration-500"
       ref={containerRef}
     >
       <div ref={ref} className="relative max-w-7xl mx-auto pb-32">
         {data.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col md:flex-row gap-12 md:gap-20 pt-20" // more spacing between items
+            className="flex flex-col md:flex-row gap-12 md:gap-20 pt-20"
           >
+
             {/* Date / Title */}
+
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-black flex items-center justify-center">
-                <div className="h-4 w-4 rounded-full bg-neutral-800 border border-neutral-700 p-2" />
+              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white dark:bg-black flex items-center justify-center">
+                <div className="h-4 w-4 rounded-full bg-neutral-300 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 p-2" />
               </div>
-              <h3 className="hidden md:block text-lg md:pl-20 md:text-2xl font-semibold text-gray-400">
+              <h3 className="hidden md:block text-lg md:pl-20 md:text-2xl font-semibold text-[var(--muted-foreground)]">
                 {item.title}
               </h3>
             </div>
 
             {/* Content with slide-up animation */}
+
             <motion.div
-              className="relative pl-20 md:pl-32 pr-4 w-full" // align with About right column
-              initial={{ opacity: 0, y: 50 }}       // start slightly below
-              whileInView={{ opacity: 1, y: 0 }}   // slide up into view
-              viewport={{ once: true, amount: 0.3 }} // trigger when 30% visible
+              className="relative pl-20 md:pl-32 pr-4 w-full" 
+              initial={{ opacity: 0, y: 50 }}     
+              whileInView={{ opacity: 1, y: 0 }}   
+              viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              <h3 className="md:hidden block text-xl mb-4 font-semibold text-gray-400">
+              <h3 className="md:hidden block text-xl mb-4 font-semibold text-[var(--muted-foreground)]">
                 {item.title}
               </h3>
               {item.content}
@@ -65,6 +72,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         ))}
 
         {/* Timeline vertical line */}
+
         <div
           style={{ height: height + "px" }}
           className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"

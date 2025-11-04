@@ -1,11 +1,6 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @import "tailwindcss";
-@tailwind utilities;
-@tailwind components;
-@tailwind base;
 
-/* Define your design tokens using CSS variables */
 :root {
   --radius: 0.625rem;
   --font-sans: 'Inter', 'Helvetica', 'Arial', sans-serif;
@@ -78,10 +73,34 @@ html.dark {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-/* Apply the variables globally */
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  transition: background-color 0.3s ease, color 0.3s ease;
   font-family: var(--font-sans);
+}
+
+html.light body {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+html.dark body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.theme-fade-right {
+  background: none;
+}
+
+html.dark .theme-fade-right {
+  background: linear-gradient(
+    to right,
+    color-mix(in oklch, var(--background) 85%, transparent),
+    color-mix(in oklch, var(--background) 50%, transparent),
+    transparent
+  );
+}
+
+.group:hover  to { --p: 360deg; }
+
+.hover-theme-bg:hover {
+  background-color: color-mix(in oklch, var(--background) 90%, transparent);
 }
