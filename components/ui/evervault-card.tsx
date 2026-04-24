@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 // Evervault Card Component used and modified from Aceternity UI
 // Link: ui.aceternity.com/components/evervault-card
@@ -97,11 +97,11 @@ export default function EvervaultCard({ title, description, href, githubHref, cl
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${title} — open live project`}
+                aria-label={`${title} - open live project`}
                 className="inline-flex items-center gap-2 rounded-lg border border-indigo-300/60 dark:border-indigo-700/60 px-3 py-1.5 text-sm text-indigo-700 dark:text-indigo-300 transition-colors transform hover:-translate-y-0.5 hover:shadow-md hover:bg-indigo-50 dark:hover:bg-indigo-950/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
               >
                 Live
-                <span aria-hidden>→</span>
+                <span aria-hidden="true" className="ml-1" aria-label="opens in new tab">↗</span>
               </Link>
             )}
             {githubHref && (
@@ -109,18 +109,18 @@ export default function EvervaultCard({ title, description, href, githubHref, cl
                 href={githubHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${title} — open GitHub repository`}
+                aria-label={`${title} - open GitHub repository`}
                 className="inline-flex items-center gap-2 rounded-lg border border-gray-300/60 dark:border-gray-700/60 px-3 py-1.5 text-sm text-[var(--foreground)] transition-colors transform hover:-translate-y-0.5 hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-900/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
               >
                 GitHub
-                <span aria-hidden>↗</span>
+                <span aria-hidden="true" className="ml-1" aria-label="opens in new tab">↗</span>
               </Link>
             )}
           </div>
         )}
         {false && (
           <span className="hidden mt-auto inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
-            View Project <span aria-hidden>→</span>
+            View Project <span aria-hidden="true" className="ml-1" aria-label="opens in new tab">↗</span>
           </span>
         )}
       </div>
@@ -130,7 +130,7 @@ export default function EvervaultCard({ title, description, href, githubHref, cl
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${title} — open project`}
+          aria-label={`${title} - open project`}
           className="absolute inset-0"
         />
       )}

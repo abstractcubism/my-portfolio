@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -41,36 +41,38 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 px-6 bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500">
+    <section id="contact" className="py-24 px-6 scroll-mt-24 bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500">
       <div className="max-w-5xl mx-auto grid gap-10 items-stretch">
         <div className="flex flex-col justify-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-indigo-600 dark:text-indigo-400">Let’s work together</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-indigo-600 dark:text-indigo-400">Let's work together</h2>
           <p className="text-[var(--muted-foreground)] mb-6">
-            I’m open to internships and startup opportunities. The quickest way to reach me is through email:
+            I'm open to internships and startup opportunities. The quickest way to reach me is through email:
           </p>
           <div className="flex flex-wrap items-center gap-3 md:gap-4 text-lg mb-4">
             <div className="inline-flex items-center gap-2 px-0 py-0 rounded-lg text-[var(--muted-foreground)]" aria-label="Email address (not a button)" title="Email address (not clickable)">
               <FaEnvelope className="shrink-0" />
               <span className="text-base md:text-lg select-text">
-
-                {/* Email Address to prevent bot spam */}
-
                 {emailUser} [at] gmail.com
               </span>
             </div>
             <button
               type="button"
               onClick={copyEmail}
-              className={`group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-800 transition transform hover:-translate-y-0.5 hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 hover:bg-[color-mix(in_oklch,var(--background)_90%,transparent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${copied ? "bg-green-600 text-white border-green-600 hover:bg-green-600" : ""}`}
+              className={`group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-800 transform will-change-transform hover:-translate-y-0.5 hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 hover:bg-[color-mix(in_oklch,var(--background)_90%,transparent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors duration-200 ${copied ? "bg-green-600 text-white border-green-600 hover:bg-green-600 hover:border-green-600" : ""}`}
               aria-label="Copy email address to clipboard"
               title="Copy email"
             >
-              {copied ? (
-                <FaCheck className="animate-bounce" />
-              ) : (
-                <FaRegCopy className="transition-transform duration-300 group-hover:scale-110" />
-              )}
-              <span className="text-sm md:text-base">{copied ? "Copied!" : "Copy email"}</span>
+              <span className="relative w-5 h-5 inline-block">
+                <FaCheck
+                  className={`absolute inset-0 transition-opacity duration-200 ${copied ? 'opacity-100' : 'opacity-0'}`}
+                />
+                <FaRegCopy
+                  className={`absolute inset-0 transition-transform transition-opacity duration-200 ${copied ? 'opacity-0' : 'opacity-100 group-hover:scale-110'}`}
+                />
+              </span>
+              <span className="text-sm md:text-base inline-block min-w-[6.5rem]" aria-live="polite" aria-atomic="true">
+                {copied ? "Copied!" : "Copy email"}
+              </span>
             </button>
 
             {/* Social Links */}

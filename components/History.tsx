@@ -11,7 +11,7 @@ export default function History() {
             Rutgers, The State University of New Jersey
           </h3>
           <p className="text-[var(--muted-foreground)]">Rutgers Business School</p>
-          <p className="italic text-[var(--muted-foreground)]">GPA: 3.5 • Dean’s List Sophomore Year</p>
+          <p className="italic text-[var(--muted-foreground)]">GPA: 3.5 — Dean’s List Sophomore Year, Fall of Junior Year</p>
           <ul className="list-disc list-inside text-[var(--foreground)] mt-2 space-y-1">
             <li>Bachelor in Business Analytics and IT (BAIT) and Computer Science</li>
             <li>Courses: Data Structures, Python, SQL, R, Statistics, Business Fundamentals</li>
@@ -28,7 +28,7 @@ export default function History() {
           </h3>
           <p className="text-[var(--muted-foreground)]">Construction Specialties Group</p>
           <ul className="list-disc list-inside text-[var(--foreground)] mt-2 space-y-1">
-            <li>Templating and researching AI Solutions for common problem types</li>
+            <li>Templating and researching AI solutions for common problem types</li>
             <li>Developing a failure prediction model with analytics reporting on factory machinery</li>
           </ul>
         </div>
@@ -105,7 +105,7 @@ export default function History() {
             Computer Science & Applied Engineering Academy
           </h3>
           <p className="text-[var(--muted-foreground)]">Voorhees High School</p>
-          <p className="italic text-[var(--muted-foreground)]">GPA: 3.7 • National Technical Honors Society</p>
+          <p className="italic text-[var(--muted-foreground)]">GPA: 3.7 — National Technical Honors Society</p>
           <ul className="list-disc list-inside text-[var(--foreground)] mt-2 space-y-1">
             <li>1 of 25 students selected for 4-year technical program</li>
             <li>Completed projects in programming, ML, data analytics, networking, cybersecurity</li>
@@ -116,8 +116,9 @@ export default function History() {
   ];
 
   return (
-    <section id="timeline" className="py-20 px-6 bg-[var(--background)] text-[var(--foreground)] relative overflow-hidden transition-colors duration-500">
+    <section id="timeline" className="py-24 px-6 scroll-mt-24 bg-[var(--background)] text-[var(--foreground)] relative overflow-hidden transition-colors duration-500">
       <Timeline data={data} />
     </section>
   );
 }
+

@@ -12,6 +12,7 @@ const images = [
   { src: '/hero4.jpg', caption: 'Bloomberg Women in Data 2025' },
   { src: '/hero5.jpg', caption: 'Startup Grind 2025' },
   { src: '/hero6.jpg', caption: 'Microsoft 2024' },
+  { src: '/hero7.jpg', caption: 'Microsoft AI Tour 2026' },
 ];
 
 export default function Hero() {

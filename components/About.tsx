@@ -90,7 +90,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-24 px-6 bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500"
+      className="py-24 px-6 scroll-mt-24 bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500"
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-stretch">
 
