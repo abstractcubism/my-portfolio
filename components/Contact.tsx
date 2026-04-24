@@ -44,7 +44,7 @@ export default function Contact() {
     <section id="contact" className="py-24 px-6 scroll-mt-24 bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500">
       <div className="max-w-5xl mx-auto grid gap-10 items-stretch">
         <div className="flex flex-col justify-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-indigo-600 dark:text-indigo-400">Let's work together</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-[var(--color-accent)]">Let's work together</h2>
           <p className="text-[var(--muted-foreground)] mb-6">
             I'm open to internships and startup opportunities. The quickest way to reach me is through email:
           </p>
@@ -58,7 +58,7 @@ export default function Contact() {
             <button
               type="button"
               onClick={copyEmail}
-              className={`group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-800 transform will-change-transform hover:-translate-y-0.5 hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 hover:bg-[color-mix(in_oklch,var(--background)_90%,transparent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors duration-200 ${copied ? "bg-green-600 text-white border-green-600 hover:bg-green-600 hover:border-green-600" : ""}`}
+              className={`group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-800 transform will-change-transform hover:-translate-y-0.5 hover:shadow-md hover:border-[var(--color-accent-muted)] hover:bg-[color-mix(in_oklch,var(--background)_90%,transparent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-colors duration-200 ${copied ? "bg-green-600 text-white border-green-600 hover:bg-green-600 hover:border-green-600" : ""}`}
               aria-label="Copy email address to clipboard"
               title="Copy email"
             >
@@ -82,7 +82,7 @@ export default function Contact() {
                 href="https://www.linkedin.com/in/leahhami"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-800 transition transform hover:-translate-y-0.5 hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 hover:bg-[color-mix(in_oklch,var(--background)_90%,transparent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                className="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-800 transition transform hover:-translate-y-0.5 hover:shadow-md hover:border-[var(--color-accent-muted)] hover:bg-[color-mix(in_oklch,var(--background)_90%,transparent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
                 aria-label="LinkedIn (opens in a new tab)"
                 title="LinkedIn"
               >
@@ -93,7 +93,7 @@ export default function Contact() {
                 href="https://github.com/abstractcubism"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-800 transition transform hover:-translate-y-0.5 hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 hover:bg-[color-mix(in_oklch,var(--background)_90%,transparent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                className="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-800 transition transform hover:-translate-y-0.5 hover:shadow-md hover:border-[var(--color-accent-muted)] hover:bg-[color-mix(in_oklch,var(--background)_90%,transparent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
                 aria-label="GitHub (opens in a new tab)"
                 title="GitHub"
               >
@@ -110,7 +110,7 @@ export default function Contact() {
               href="https://calendar.app.google/JtcjLYhEQw6WqES57"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-white shadow transition hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+              className="group inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-[var(--background)] shadow transition hover:bg-[var(--color-accent-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
               aria-label="Book a meeting via Google Calendar (opens in a new tab)"
               title="Book a meeting"
             >

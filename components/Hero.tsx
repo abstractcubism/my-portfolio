@@ -1,98 +1,124 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
 import Typewriter from 'typewriter-effect';
-import { motion } from 'framer-motion';
+import AsciiCube from './AsciiCube';
 
-const images = [
-  { src: '/hero1.jpg', caption: '' },
-  { src: '/hero2.jpg', caption: 'Startup Grind 2025' },
-  { src: '/hero3.jpg', caption: 'Bloomberg Women in Data 2025' },
-  { src: '/hero4.jpg', caption: 'Bloomberg Women in Data 2025' },
-  { src: '/hero5.jpg', caption: 'Startup Grind 2025' },
-  { src: '/hero6.jpg', caption: 'Microsoft 2024' },
-  { src: '/hero7.jpg', caption: 'Microsoft AI Tour 2026' },
-];
+const SCRAMBLE = '0123456789!@#$%^&*<>[]{}ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+const TARGET = 'Leah';
 
 export default function Hero() {
-  const NAVBAR_HEIGHT = 80;
-  const [index, setIndex] = useState(0);
+  const NAVBAR_HEIGHT = 64;
+  const letterRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const [canAnimate, setCanAnimate] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => prev + 1);
-    }, 4000);
-    return () => clearInterval(interval);
+    // Wait for load animation to complete before starting scramble
+    const wasLoaded = sessionStorage.getItem('portfolio-loaded');
+    
+    if (wasLoaded) {
+      // Already visited - animate immediately
+      setCanAnimate(true);
+    } else {
+      // First visit - wait for load animation to finish
+      const checkLoaded = setInterval(() => {
+        if (sessionStorage.getItem('portfolio-loaded')) {
+          setCanAnimate(true);
+          clearInterval(checkLoaded);
+        }
+      }, 100);
+      
+      return () => clearInterval(checkLoaded);
+    }
   }, []);
 
+  useEffect(() => {
+    if (!canAnimate) return;
+
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const intervals: ReturnType<typeof setInterval>[] = [];
+
+    TARGET.split('').forEach((finalChar, i) => {
+      const delay = 180 + i * 130;
+      const duration = 560;
+      const tickRate = 38;
+
+      const t = setTimeout(() => {
+        const el = letterRefs.current[i];
+        if (!el) return;
+
+        const interval = setInterval(() => {
+          el.textContent = SCRAMBLE[Math.floor(Math.random() * SCRAMBLE.length)];
+        }, tickRate);
+        intervals.push(interval);
+
+        const stop = setTimeout(() => {
+          clearInterval(interval);
+          if (el) el.textContent = finalChar;
+        }, duration);
+        timers.push(stop);
+      }, delay);
+
+      timers.push(t);
+    });
+
+    return () => {
+      timers.forEach(clearTimeout);
+      intervals.forEach(clearInterval);
+    };
+  }, [canAnimate]);
+
   return (
-    <section id="hero"
+    <section
+      id="hero"
       className="relative w-full overflow-hidden bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500"
       style={{
         height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
         marginTop: `${NAVBAR_HEIGHT}px`,
       }}
     >
-
-      {/* Carousel */}
-
-      <div className="absolute right-0 top-0 h-full w-[70%] overflow-hidden">
-        <motion.div
-          className="flex h-full"
-          animate={{ x: `-${(index % images.length) * 100}%` }}
-          transition={{
-            duration: 1,
-            ease: 'easeInOut',
+      {/* ── ASCII Cube (right side, replaces carousel) ── */}
+      <div className="absolute right-0 top-0 h-full w-[65%] flex items-center justify-center overflow-hidden">
+        <AsciiCube />
+        {/* Fade edge blending with text */}
+        <div
+          className="absolute left-0 top-0 h-full w-1/2 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to right, var(--background) 10%, transparent)',
           }}
-        >
-          {[...images, ...images].map((img, i) => (
-            <div key={i} className="relative w-full h-full flex-shrink-0">
-              <Image
-                src={img.src}
-                alt={img.caption}
-                fill
-                priority={i === 0}
-                sizes="(max-width: 640px) 100vw, 70vw"
-                className="object-cover"
-              />
-
-              {/* Left Background Column */}
-
-              <div
-                className="absolute bottom-6 right-6 text-[var(--foreground)] text-sm md:text-base px-3 py-2 rounded-lg backdrop-blur-sm transition-colors duration-300"
-                style={{ backgroundColor: 'color-mix(in oklch, var(--background) 60%, transparent)' }}
-              >
-                {images[i % images.length].caption}
-              </div>
-            </div>
-          ))}
-        </motion.div>
-
-        <div className="absolute left-0 top-0 w-1/3 h-full theme-fade-right pointer-events-none transition-all duration-300" />
+        />
       </div>
 
-      <div className="absolute inset-0 theme-fade-right transition-all duration-300" />
-
-      {/* Text Content */}
-
+      {/* ── Text Content ── */}
       <div className="max-w-6xl mx-auto h-full px-6">
         <div
-          className="relative z-10 flex flex-col justify-center h-full pl-0 pr-8 md:pl-2 md:pr-16 lg:pl-8 lg:pr-32 transition-colors duration-300"
-          style={{ maxWidth: '38vw' }}
+          className="relative z-10 flex flex-col justify-center h-full"
+          style={{ maxWidth: '42vw' }}
         >
-          <h1 className="text-5xl md:text-6xl font-bold text-[var(--foreground)] mb-6 leading-tight drop-shadow-lg">
-            Hi, I'm{' '}
-            <span className="text-indigo-600 dark:text-indigo-400 font-extrabold">
-              Leah
-            </span>
+          {/* "Hi, I'm" label */}
+          <p className="text-base md:text-lg text-[var(--muted-foreground)] font-medium mb-2 tracking-wide">
+            Hi, I&apos;m
+          </p>
+
+          {/* Big scrambled name */}
+          <h1
+            className="font-extrabold leading-none mb-6"
+            style={{ fontSize: 'clamp(5rem, 9vw, 10rem)' }}
+          >
+            {TARGET.split('').map((char, i) => (
+              <span
+                key={i}
+                ref={el => { letterRefs.current[i] = el; }}
+                className="text-[var(--color-accent)] inline-block"
+                style={{ minWidth: '0.54em', textAlign: 'center' }}
+              >
+                {char}
+              </span>
+            ))}
           </h1>
 
-          <h2 className="text-xl md:text-2xl text-[var(--muted-foreground)] flex flex-wrap items-center space-x-2">
+          <h2 className="text-xl md:text-2xl text-[var(--muted-foreground)] flex flex-wrap items-center gap-x-2">
             <span>your next</span>
-
-            {/* Typing Effect */}
-
             <Typewriter
               options={{
                 strings: [

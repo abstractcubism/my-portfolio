@@ -15,13 +15,13 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-      className="group p-2 rounded-full hover-theme-bg transition-colors duration-300 text-[var(--foreground)] outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
+      className="group p-2 rounded-full hover-theme-bg transition-colors duration-300 text-[var(--foreground)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-muted)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
       aria-label="Toggle Theme"
     >
       {resolvedTheme === 'dark' ? (
-        <SunIcon className="w-6 h-6 text-[var(--foreground)] transition-transform transition-colors duration-300 group-hover:rotate-12 group-hover:scale-110 group-hover:text-indigo-400 drop-shadow-sm group-hover:drop-shadow" />
+        <SunIcon className="w-6 h-6 text-[var(--foreground)] transition-transform transition-colors duration-300 group-hover:rotate-12 group-hover:scale-110 group-hover:text-[var(--color-accent)] drop-shadow-sm group-hover:drop-shadow" />
       ) : (
-        <MoonIcon className="w-6 h-6 text-[var(--foreground)] transition-transform transition-colors duration-300 group-hover:-rotate-12 group-hover:scale-110 group-hover:text-indigo-600 drop-shadow-sm group-hover:drop-shadow" />
+        <MoonIcon className="w-6 h-6 text-[var(--foreground)] transition-transform transition-colors duration-300 group-hover:-rotate-12 group-hover:scale-110 group-hover:text-[var(--color-accent)] drop-shadow-sm group-hover:drop-shadow" />
       )}
     </button>
   );

@@ -104,7 +104,7 @@ export default function About() {
           variants={containerVariants}
         >
           <motion.h2
-            className="text-5xl font-bold text-indigo-600 dark:text-indigo-400 text-center"
+            className="text-5xl font-bold text-[var(--color-accent)] text-center"
             variants={itemVariants}
           >
             About Me
@@ -188,7 +188,7 @@ export default function About() {
           viewport={{ once: true, amount: 0.2 }}
           variants={containerVariants}
         >
-          <h3 className="text-5xl font-bold mb-4 text-indigo-600 dark:text-indigo-400 text-center">
+          <h3 className="text-5xl font-bold mb-4 text-[var(--color-accent)] text-center">
             Tech Stack
           </h3>
 

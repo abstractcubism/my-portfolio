@@ -7,7 +7,7 @@ export default function History() {
       title: "May 2027",
       content: (
         <div>
-          <h3 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400">
+          <h3 className="text-lg font-semibold text-[var(--color-accent)]">
             Rutgers, The State University of New Jersey
           </h3>
           <p className="text-[var(--muted-foreground)]">Rutgers Business School</p>
@@ -20,16 +20,32 @@ export default function History() {
       ),
     },
     {
+      title: "March 2026 – Present",
+      content: (
+        <div>
+          <h3 className="text-lg font-semibold text-[var(--color-accent)]">
+            Full Stack Developer (Freelance)
+          </h3>
+          <p className="text-[var(--muted-foreground)]">Taxflow - An unannounced startup</p>
+          <ul className="list-disc list-inside text-[var(--foreground)] mt-2 space-y-1">
+            <li>Redesign and implement web application using React</li>
+            <li>Establish connections to SupaBase, Stripe, Clerk, and other third-party services</li>
+            <li>Develop identification LLM connected to an AI based on confidence scores</li>
+          </ul>
+        </div>
+      ),
+    },
+    {
       title: "October 2025 – Present",
       content: (
         <div>
-          <h3 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400">
+          <h3 className="text-lg font-semibold text-[var(--color-accent)]">
             AI Technician Co-Op
           </h3>
           <p className="text-[var(--muted-foreground)]">Construction Specialties Group</p>
           <ul className="list-disc list-inside text-[var(--foreground)] mt-2 space-y-1">
-            <li>Templating and researching AI solutions for common problem types</li>
-            <li>Developing a failure prediction model with analytics reporting on factory machinery</li>
+            <li>Developed a multi-agentic ITSM solution for managing and optimizing IT services</li>
+            <li>Developed and connected to an MCP server for modifying Outlook Calendar and Fabric tables</li>
           </ul>
         </div>
       ),
@@ -38,12 +54,12 @@ export default function History() {
       title: "June 2025 – Aug 2025",
       content: (
         <div>
-          <h3 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400">
+          <h3 className="text-lg font-semibold text-[var(--color-accent)]">
             AI Engineer Intern
           </h3>
           <p className="text-[var(--muted-foreground)]">Construction Specialties Group</p>
           <ul className="list-disc list-inside text-[var(--foreground)] mt-2 space-y-1">
-            <li>Built internal Azure AI Foundry LLM with Oracle DB + Microsoft Fabric</li>
+            <li>Built internal Data Analytics Assistant in Microsoft AI Foundry with access to SuperScreen DB + Microsoft Fabric</li>
             <li>Wrote sample SQL queries for large purchase order datasets</li>
             <li>Developed HR LLM in Python + Flask web app</li>
           </ul>
@@ -54,12 +70,12 @@ export default function History() {
       title: "May 2024 – Present",
       content: (
         <div>
-          <h3 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400">
+          <h3 className="text-lg font-semibold text-[var(--color-accent)]">
             Head Supervisor / IT Support Specialist
           </h3>
           <p className="text-[var(--muted-foreground)]">Rutgers Office of Information Technology</p>
           <ul className="list-disc list-inside text-[var(--foreground)] mt-2 space-y-1">
-            <li>Lead Help Desk operations, supervise 100+ consultants</li>
+            <li>Lead Help Desk operations, supervise 200+ consultants</li>
             <li>Resolve advanced hardware/software/network issues via ServiceNow</li>
             <li>Managed outages independently during late shifts</li>
           </ul>
@@ -70,7 +86,7 @@ export default function History() {
       title: "October 2021 – February 2025",
       content: (
         <div>
-          <h3 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400">
+          <h3 className="text-lg font-semibold text-[var(--color-accent)]">
             Manager
           </h3>
           <p className="text-[var(--muted-foreground)]">Kuay Tiew Noodles and More</p>
@@ -86,7 +102,7 @@ export default function History() {
       title: "Summer 2023 – 2024",
       content: (
         <div>
-          <h3 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400">
+          <h3 className="text-lg font-semibold text-[var(--color-accent)]">
             IT Intern
           </h3>
           <p className="text-[var(--muted-foreground)]">Voorhees High School</p>
@@ -101,7 +117,7 @@ export default function History() {
       title: "June 2023",
       content: (
         <div>
-          <h3 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400">
+          <h3 className="text-lg font-semibold text-[var(--color-accent)]">
             Computer Science & Applied Engineering Academy
           </h3>
           <p className="text-[var(--muted-foreground)]">Voorhees High School</p>

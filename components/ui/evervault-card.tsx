@@ -80,7 +80,7 @@ export default function EvervaultCard({ title, description, href, githubHref, cl
           width: 260,
           height: 260,
           background:
-            "radial-gradient(circle at center, rgba(99,102,241,0.30), rgba(99,102,241,0.12) 40%, transparent 70%)",
+            "radial-gradient(circle at center, oklch(0.52 0.13 140 / 0.30), oklch(0.52 0.13 140 / 0.12) 40%, transparent 70%)",
         }}
       />
 
@@ -98,7 +98,7 @@ export default function EvervaultCard({ title, description, href, githubHref, cl
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${title} - open live project`}
-                className="inline-flex items-center gap-2 rounded-lg border border-indigo-300/60 dark:border-indigo-700/60 px-3 py-1.5 text-sm text-indigo-700 dark:text-indigo-300 transition-colors transform hover:-translate-y-0.5 hover:shadow-md hover:bg-indigo-50 dark:hover:bg-indigo-950/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
+                className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-accent-muted)] px-3 py-1.5 text-sm text-[var(--color-accent)] transition-colors transform hover:-translate-y-0.5 hover:shadow-md hover:bg-[var(--color-accent-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-muted)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
               >
                 Live
                 <span aria-hidden="true" className="ml-1" aria-label="opens in new tab">↗</span>
@@ -119,21 +119,11 @@ export default function EvervaultCard({ title, description, href, githubHref, cl
           </div>
         )}
         {false && (
-          <span className="hidden mt-auto inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+          <span className="hidden mt-auto inline-flex items-center gap-2 text-[var(--color-accent)]">
             View Project <span aria-hidden="true" className="ml-1" aria-label="opens in new tab">↗</span>
           </span>
         )}
       </div>
-
-      {false && (
-        <Link
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${title} - open project`}
-          className="absolute inset-0"
-        />
-      )}
 
     </div>
   );

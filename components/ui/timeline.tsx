@@ -1,10 +1,7 @@
 "use client";
 
-// Timeline Component used and modified from Aceternity UI
-// Link: ui.aceternity.com/components/timeline
-
-import { useScroll, useTransform, motion } from "motion/react";
-import React, { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
+import React from "react";
 
 interface TimelineEntry {
   title: string;
@@ -12,80 +9,45 @@ interface TimelineEntry {
 }
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState(0);
-
-  useEffect(() => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setHeight(rect.height);
-    }
-  }, [ref]);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 10%", "end 50%"],
-  });
-
-  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-
   return (
-    <div
-      className="w-full bg-[var(--background)] text-[var(--foreground)] font-sans md:px-10 transition-colors duration-500"
-      ref={containerRef}
-    >
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-32">
-        {data.map((item, index) => (
-          <div
-            key={index}
-            className="flex flex-col md:flex-row gap-12 md:gap-20 pt-20"
-          >
+    <div className="max-w-4xl mx-auto">
 
-            {/* Date / Title */}
+      {/* Section label */}
+      <p className="font-mono text-xs tracking-[0.22em] uppercase text-[var(--color-accent)] mb-12">
+        experience &amp; education
+      </p>
 
-            <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white dark:bg-black flex items-center justify-center">
-                <div className="h-4 w-4 rounded-full bg-neutral-300 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 p-2" />
-              </div>
-              <h3 className="hidden md:block text-lg md:pl-20 md:text-2xl font-semibold text-[var(--muted-foreground)]">
-                {item.title}
-              </h3>
-            </div>
-
-            {/* Content with slide-up animation */}
-
-            <motion.div
-              className="relative pl-20 md:pl-32 pr-4 w-full" 
-              initial={{ opacity: 0, y: 50 }}     
-              whileInView={{ opacity: 1, y: 0 }}   
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              <h3 className="md:hidden block text-xl mb-4 font-semibold text-[var(--muted-foreground)]">
-                {item.title}
-              </h3>
-              {item.content}
-            </motion.div>
-          </div>
-        ))}
-
-        {/* Timeline vertical line */}
-
-        <div
-          style={{ height: height + "px" }}
-          className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
+      {/* Entries */}
+      {data.map((item, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.5, delay: index * 0.04, ease: 'easeOut' }}
+          className="group grid grid-cols-[2.5rem_1fr] gap-x-6 py-8 border-t border-[var(--border)]"
         >
-          <motion.div
-            style={{
-              height: heightTransform,
-              opacity: opacityTransform,
-            }}
-            className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-purple-500 via-indigo-400 to-blue-500 from-[0%] via-[10%] rounded-full"
-          />
-        </div>
-      </div>
+          {/* Row number */}
+          <span
+            className="font-mono text-sm pt-0.5 text-[var(--color-accent)] tabular-nums"
+            aria-hidden
+          >
+            {String(index + 1).padStart(2, '0')}
+          </span>
+
+          {/* Content block */}
+          <div>
+            {/* Date pill */}
+            <span className="inline-block font-mono text-xs text-[var(--muted-foreground)] tracking-wide mb-2">
+              {item.title}
+            </span>
+            {item.content}
+          </div>
+        </motion.div>
+      ))}
+
+      {/* Closing rule */}
+      <div className="border-t border-[var(--border)]" />
     </div>
   );
 };
