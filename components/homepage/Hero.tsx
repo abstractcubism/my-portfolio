@@ -1,8 +1,19 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import React, { useEffect, useRef, useState } from 'react';
 import Typewriter from 'typewriter-effect';
-import AsciiCube from './AsciiCube';
+import HeroCursorGlow from './HeroCursorGlow';
+
+const AsciiCube = dynamic(() => import('./AsciiCube'), {
+  ssr: false,
+  loading: () => (
+    <div
+      aria-hidden="true"
+      className="h-[22rem] w-[22rem] rounded-full border border-[var(--border)] bg-[var(--color-accent-subtle)]/50 blur-[2px]"
+    />
+  ),
+});
 
 const SCRAMBLE = '0123456789!@#$%^&*<>[]{}ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 const TARGET = 'Leah';
@@ -69,41 +80,51 @@ export default function Hero() {
   }, [canAnimate]);
 
   return (
+    <>
+    <HeroCursorGlow />
     <section
       id="hero"
-      className="relative w-full overflow-hidden bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500"
+      className="relative w-full overflow-hidden bg-[var(--background)] text-[var(--foreground)]"
       style={{
         height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
         marginTop: `${NAVBAR_HEIGHT}px`,
       }}
     >
-      {/* ── ASCII Cube (right side, replaces carousel) ── */}
-      <div className="absolute right-0 top-0 h-full w-[65%] flex items-center justify-center overflow-hidden">
+      {/* Paper texture overlay */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/></filter><rect width='256' height='256' filter='url(%23p)'/></svg>")`,
+          backgroundSize: '256px 256px',
+          opacity: 0.072,
+          zIndex: 1,
+        }}
+      />
+
+      {/* ASCII Cube */}
+      <div className="absolute right-0 top-0 h-full w-[65%] flex items-center justify-center overflow-hidden z-[6]">
         <AsciiCube />
-        {/* Fade edge blending with text */}
-        <div
-          className="absolute left-0 top-0 h-full w-1/2 pointer-events-none"
-          style={{
-            background: 'linear-gradient(to right, var(--background) 10%, transparent)',
-          }}
-        />
       </div>
 
-      {/* ── Text Content ── */}
+      {/* Text Content */}
       <div className="max-w-6xl mx-auto h-full px-6">
         <div
           className="relative z-10 flex flex-col justify-center h-full"
           style={{ maxWidth: '42vw' }}
         >
-          {/* "Hi, I'm" label */}
           <p className="text-base md:text-lg text-[var(--muted-foreground)] font-medium mb-2 tracking-wide">
             Hi, I&apos;m
           </p>
 
-          {/* Big scrambled name */}
           <h1
-            className="font-extrabold leading-none mb-6"
-            style={{ fontSize: 'clamp(5rem, 9vw, 10rem)' }}
+            className="font-bold leading-none mb-6"
+            style={{
+              fontSize: 'clamp(5rem, 9vw, 10rem)',
+              fontFamily: 'var(--font-display)',
+              fontStyle: 'italic',
+              letterSpacing: '0.03em',
+            }}
           >
             {TARGET.split('').map((char, i) => (
               <span
@@ -139,5 +160,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+    </>
   );
 }

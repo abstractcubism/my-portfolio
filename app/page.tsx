@@ -1,20 +1,17 @@
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import History from '@/components/History';
-import Projects from '@/components/Projects';
-import Contact from '@/components/Contact';
-import PageWrapper from '@/components/PageWrapper';
+import Hero from '@/components/homepage/Hero';
+import History from '@/components/homepage/HeroHistory';
+import TechStack from '@/components/homepage/HeroTechStack';
+import Projects from '@/components/homepage/HeroProjects';
+import Footer from '@/components/homepage/HeroFooter';
 
 export default function HomePage() {
   return (
-    <PageWrapper>
-      <main>
-        <Hero />
-        <About />
-        <History />
-        <Projects />
-        <Contact />
-      </main>
-    </PageWrapper>
+    <main>
+      <Hero />
+      <TechStack />
+      <History />
+      <Projects />
+      <Footer />
+    </main>
   );
 }

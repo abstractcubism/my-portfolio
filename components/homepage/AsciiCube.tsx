@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { FaGithub } from 'react-icons/fa';
 
 const COLS = 62;
 const ROWS = 27;
-const K1 = 50;     // projection scale
-const K2 = 4.0;    // camera distance
-const SIZE = 1.0;  // cube half-size
+const K1 = 50;
+const K2 = 4.0;
+const SIZE = 1.0;
 const STEP = 0.035;
 const CHARS = '.,-~:;=!*#$@';
 
@@ -33,6 +34,8 @@ function rotateXY(x: number, y: number, z: number, ax: number, ay: number): Vec3
 
 export default function AsciiCube() {
   const preRef = useRef<HTMLPreElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const isHovering = useRef(false);
 
   useEffect(() => {
     let ax = 0.5, ay = 0.3;
@@ -75,8 +78,9 @@ export default function AsciiCube() {
       }
       if (preRef.current) preRef.current.textContent = out;
 
-      ax += 0.007;
-      ay += 0.011;
+      const speed = isHovering.current ? 4.5 : 1;
+      ax += 0.007 * speed;
+      ay += 0.011 * speed;
       rafId = requestAnimationFrame(frame);
     };
 
@@ -85,11 +89,47 @@ export default function AsciiCube() {
   }, []);
 
   return (
-    <pre
-      ref={preRef}
-      className="font-mono text-[var(--color-accent)] select-none pointer-events-none leading-tight"
-      style={{ fontSize: 'clamp(10px, 1.5vw, 16px)', lineHeight: 1.18 }}
-      aria-hidden
-    />
+    <a
+      href="https://github.com/abstractcubism"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="View GitHub profile"
+      className="relative inline-block w-fit cursor-pointer"
+      onMouseEnter={() => {
+        isHovering.current = true;
+        if (overlayRef.current) overlayRef.current.style.opacity = '1';
+      }}
+      onMouseLeave={() => {
+        isHovering.current = false;
+        if (overlayRef.current) overlayRef.current.style.opacity = '0';
+      }}
+    >
+      <pre
+        ref={preRef}
+        className="block w-fit font-mono text-[var(--color-accent)] select-none leading-tight"
+        style={{ fontSize: 'clamp(10px, 1.5vw, 16px)', lineHeight: 1.18 }}
+        aria-hidden
+      />
+
+      {/* GitHub overlay — fades in on hover */}
+      <div
+        ref={overlayRef}
+        data-no-glow="true"
+        className="absolute inset-0 flex flex-col items-center justify-center"
+        style={{
+          opacity: 0,
+          transition: 'opacity 0.3s ease',
+          pointerEvents: 'none',
+        }}
+      >
+        <FaGithub
+          className="text-[var(--color-accent)]"
+          style={{ width: '2.8rem', height: '2.8rem' }}
+        />
+        <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-[var(--color-accent)] mt-2">
+          github
+        </span>
+      </div>
+    </a>
   );
 }

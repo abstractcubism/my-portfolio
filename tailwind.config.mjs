@@ -1,5 +1,5 @@
 // Tailwind v4 uses ESM config. Keep it minimal so it's picked up.
-export default {
+const config = {
   darkMode: 'class',
   theme: {
     extend: {
@@ -9,3 +9,5 @@ export default {
     },
   },
 };
+
+export default config;

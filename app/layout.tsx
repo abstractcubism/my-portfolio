@@ -1,7 +1,9 @@
-﻿import './globals.css';
-import { Space_Grotesk } from 'next/font/google';
+import type { Metadata } from 'next';
+import './globals.css';
+import { Space_Grotesk, Cormorant_Garamond } from 'next/font/google';
 import Navbar from '@/components/Navbar';
-import Providers from '@/components/Providers';
+import GrainOverlay from '@/components/GrainOverlay';
+import LoadAnimation from '@/components/LoadAnimation';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -9,10 +11,40 @@ const spaceGrotesk = Space_Grotesk({
   weight: ['300', '400', '500', '600', '700'],
 });
 
-export const metadata = {
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  variable: '--font-display',
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+});
+
+function getBaseUrl() {
+  const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  const vercelHost =
+    process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim() ||
+    process.env.VERCEL_URL?.trim();
+
+  if (configuredUrl) {
+    return configuredUrl.startsWith('http')
+      ? configuredUrl
+      : `https://${configuredUrl}`;
+  }
+
+  if (vercelHost) {
+    return vercelHost.startsWith('http')
+      ? vercelHost
+      : `https://${vercelHost}`;
+  }
+
+  return 'http://localhost:3000';
+}
+
+const baseUrl = getBaseUrl();
+
+export const metadata: Metadata = {
   title: 'Leah Hamilton — Portfolio',
   description: 'Software engineer and data/AI practitioner. Projects, timeline, and contact.',
-  metadataBase: new URL('https://example.com'),
+  metadataBase: new URL(baseUrl),
   icons: {
     icon: '/LH.png',
     shortcut: '/LH.png',
@@ -21,7 +53,7 @@ export const metadata = {
   openGraph: {
     title: 'Leah Hamilton — Portfolio',
     description: 'Projects, experience, and contact.',
-    url: 'https://example.com',
+    url: baseUrl,
     siteName: 'Leah Hamilton',
     images: ['/hero1.jpg'],
     type: 'website',
@@ -36,16 +68,16 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} light`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${cormorant.variable} light`}>
       <body className="bg-[var(--background)] text-[var(--foreground)] transition-colors duration-500">
-        <Providers>
-          <Navbar />
-          {children}
-        </Providers>
+        <div className="flex min-h-screen flex-col">
+          <LoadAnimation>
+            <GrainOverlay />
+            <Navbar />
+            <div className="relative flex-1">{children}</div>
+          </LoadAnimation>
+        </div>
       </body>
     </html>
   );
 }
-
-
-

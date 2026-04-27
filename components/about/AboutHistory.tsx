@@ -1,5 +1,6 @@
 "use client";
-import { Timeline } from "./ui/timeline";
+import { motion } from "motion/react";
+import React from "react";
 
 export default function History() {
   const data = [
@@ -132,8 +133,46 @@ export default function History() {
   ];
 
   return (
-    <section id="timeline" className="py-24 px-6 scroll-mt-24 bg-[var(--background)] text-[var(--foreground)] relative overflow-hidden transition-colors duration-500">
-      <Timeline data={data} />
+    <section id="timeline" className="px-6 pb-8 pt-24 scroll-mt-24 bg-[var(--background)] text-[var(--foreground)] relative z-10 overflow-hidden transition-colors duration-500">
+      <div className="max-w-4xl mx-auto">
+        <h2
+          className="text-[var(--foreground)] leading-none mb-12"
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontStyle: 'italic',
+            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+            letterSpacing: '-0.01em',
+          }}
+        >
+          experience &amp; education
+        </h2>
+
+        {data.map((item, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.5, delay: index * 0.04, ease: 'easeOut' }}
+            className="group grid grid-cols-[2.5rem_1fr] gap-x-6 py-8 border-t border-[var(--border)]"
+          >
+            <span
+              className="font-mono text-sm pt-0.5 text-[var(--color-accent)] tabular-nums"
+              aria-hidden
+            >
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <div>
+              <span className="inline-block font-mono text-xs text-[var(--muted-foreground)] tracking-wide mb-2">
+                {item.title}
+              </span>
+              {item.content}
+            </div>
+          </motion.div>
+        ))}
+
+        <div className="border-t border-[var(--border)]" />
+      </div>
     </section>
   );
 }

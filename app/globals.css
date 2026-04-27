@@ -4,6 +4,7 @@
 :root {
   --radius: 0.625rem;
   --font-sans: 'Space Grotesk', 'Helvetica', 'Arial', sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-mono: 'Fira Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
 
   /* Light mode: cream background, near-black text */
@@ -91,7 +92,22 @@ html.dark {
 
 body {
   font-family: var(--font-sans);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: hidden;
 }
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: hidden;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
 
 html.light body {
   background-color: oklch(0.97 0.018 85) !important;
@@ -119,4 +135,10 @@ html.dark .theme-fade-right {
 
 .hover-theme-bg:hover {
   background-color: color-mix(in oklch, var(--background) 90%, transparent);
+}
+
+/* Smooth color transition for blob-driven text lighting in hero and footer */
+#hero *,
+#contact * {
+  transition: color 0.28s ease;
 }

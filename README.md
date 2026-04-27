@@ -14,15 +14,16 @@ Personal portfolio built with Next.js App Router and Tailwind CSS. Showcases my 
 - About section with playful confetti tap effect
 - Timeline with scroll progress indicator
 - Project cards with hover parallax
-- Contact section with email copy and social links
+- Footer contact links and direct email CTA
 - Dark/light theme with no flicker on toggle
 
 ### Getting Started
-- Install deps: `yarn`
-- Dev server: `yarn dev`
-- Lint: `yarn lint`
-- Build: `yarn build`
-- Start prod: `yarn start`
+- Install deps: `npm install`
+- Dev server: `npm run dev`
+- Lint: `npm run lint`
+- Typecheck: `npm run typecheck`
+- Build: `npm run build`
+- Start prod: `npm run start`
 
 Open `http://localhost:3000` in your browser.
 
@@ -37,8 +38,9 @@ Open `http://localhost:3000` in your browser.
 - CSS variables live in `app/globals.css` and drive light/dark tokens.
 
 ### Deployment
-- Recommended: Vercel. Run `yarn build` and connect the repo.
+- Recommended: Vercel. Run `npm run build` and connect the repo.
 - Static assets are served from `public/`. No external image domains required.
+- Set `NEXT_PUBLIC_SITE_URL` in Vercel to your production domain so metadata and social previews use the live URL.
 
 ### Accessibility & Performance Notes
 - Links include descriptive `aria-label`s and `rel="noopener noreferrer"` for external links.
