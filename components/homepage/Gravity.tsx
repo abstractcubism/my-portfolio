@@ -81,7 +81,8 @@ export function MatterBody({
       y,
       angle,
     });
-    return () => ctx.unregister(idRef.current);
+    const id = idRef.current;
+    return () => ctx.unregister(id);
   }, [angle, children, ctx, isDraggable, matterBodyOptions, x, y]);
 
   return (
@@ -164,6 +165,7 @@ export const Gravity = forwardRef<
         const bx = calcPos(props.x, rect.width, w);
         const by = calcPos(props.y, physicsHeight, h);
         const ang = (props.angle ?? 0) * (Math.PI / 180);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { chamfer: _chamfer, ...restOpts } = props.matterBodyOptions ?? {};
         const body = Bodies.rectangle(bx, by, w, h, {
           ...restOpts,

@@ -4,6 +4,7 @@ import { Space_Grotesk, Cormorant_Garamond } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import GrainOverlay from '@/components/GrainOverlay';
 import LoadAnimation from '@/components/LoadAnimation';
+import PageTransition from '@/components/PageTransition';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -43,7 +44,7 @@ const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
   title: 'Leah Hamilton — Portfolio',
-  description: 'Software engineer and data/AI practitioner. Projects, timeline, and contact.',
+  description: 'wow a cool portfolio website, probably the one for your next AI engineer hire :)',
   metadataBase: new URL(baseUrl),
   icons: {
     icon: '/LH.png',
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Leah Hamilton — Portfolio',
-    description: 'Projects, experience, and contact.',
+    description: 'a cool portfolio website for your next AI engineer',
     url: baseUrl,
     siteName: 'Leah Hamilton',
     images: ['/LH.png'],
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Leah Hamilton — Portfolio',
-    description: 'Projects, experience, and contact.',
+    description: 'a cool portfolio website for your next AI engineer',
     images: ['/LH.png'],
   },
 };
@@ -74,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <LoadAnimation>
             <GrainOverlay />
             <Navbar />
-            <div className="relative flex-1">{children}</div>
+            <div className="relative flex-1"><PageTransition>{children}</PageTransition></div>
           </LoadAnimation>
         </div>
       </body>

@@ -144,19 +144,20 @@ export default function ProjectsCursorGlow() {
     };
     rafRef.current = requestAnimationFrame(tick);
 
+    const parentsSnapshot = modifiedParents.current;
     return () => {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('resize', refreshRects);
       window.removeEventListener('scroll', refreshRects);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
-      for (const parent of modifiedParents.current) {
+      for (const parent of parentsSnapshot) {
         parent.querySelectorAll('[data-word-glow]').forEach(span => {
           span.replaceWith(document.createTextNode(span.textContent || ''));
         });
         parent.normalize();
       }
-      modifiedParents.current.clear();
+      parentsSnapshot.clear();
     };
   }, [refreshRects]);
 

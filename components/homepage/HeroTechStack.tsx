@@ -3,9 +3,9 @@
 import { useEffect, useRef } from 'react';
 import {
   SiPython, SiTypescript, SiJavascript, SiC, SiPostgresql, SiR,
-  SiPytorch, SiScikitlearn, SiLangchain,
-  SiReact, SiNextdotjs, SiTailwindcss, SiGreensock, SiFramer, SiSupabase,
-  SiGit, SiDocker, SiStripe, SiClerk,
+  SiScikitlearn,
+  SiReact, SiNextdotjs, SiTailwindcss, SiGreensock, SiSupabase,
+  SiGit, SiStripe, SiClerk,
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
 import { IconType } from 'react-icons';
@@ -81,7 +81,7 @@ export default function HeroTechStack({ children }: { children?: React.ReactNode
         grabCursor
         autoStart={false}
         floorOffset={0}
-        hitAreaOverflowBottom={80}
+        hitAreaOverflowBottom={160}
         style={{ zIndex: 20, pointerEvents: 'none' }}
       >
         {PILLS.map((pill) => (
@@ -120,9 +120,9 @@ export default function HeroTechStack({ children }: { children?: React.ReactNode
       )}
 
       {/* Bottom spacer — pills pile up here; pointer-events none so pills stay grabbable */}
-      <div style={{ height: 280, pointerEvents: 'none', position: 'relative', zIndex: 10 }}>
+      <div style={{ height: 220, pointerEvents: 'none', position: 'relative', zIndex: 10 }}>
         <p
-          className="absolute top-6 left-1/2 -translate-x-1/2 text-center font-mono text-[10px] leading-relaxed pointer-events-none select-none"
+          className="absolute bottom-16 left-1/2 -translate-x-1/2 text-center font-mono text-[10px] leading-relaxed pointer-events-none select-none"
           style={{ color: 'var(--color-accent)', opacity: 0.6, whiteSpace: 'nowrap' }}
         >
           oops... my skills got away from me.<br />

@@ -19,7 +19,7 @@ export const PROJECTS: Project[] = [
     description:
       'The site you\'re on. Built with Next.js 15, Tailwind CSS v4, GSAP, and Framer Motion. Features a terminal load animation, ASCII cube renderer, and GSAP horizontal scroll.',
     details:
-      'Designed and built from scratch with a focus on interactive animation and clean design. Features a custom terminal boot sequence, a real-time ASCII cube rendered in a React component, smooth horizontal project scrolling driven by GSAP ScrollTrigger, and a system-aware dark/light mode toggle. Deployed on Vercel.',
+      'Designed with a focus on interactive animation and clean design. Features a custom terminal boot sequence, a real-time ASCII cube rendered in a React component, and GSAP animations. Deployed on Vercel.',
     tags: ['Next.js', 'TypeScript', 'GSAP', 'Tailwind'],
     github: 'https://github.com/abstractcubism/my-portfolio',
     live: null,

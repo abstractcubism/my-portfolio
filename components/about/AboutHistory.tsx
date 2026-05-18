@@ -27,7 +27,7 @@ export default function History() {
           <h3 className="text-lg font-semibold text-[var(--color-accent)]">
             Technology Intern
           </h3>
-          <p className="text-[var(--muted-foreground)]">Macy's</p>
+          <p className="text-[var(--muted-foreground)]">Macy&apos;s</p>
           <ul className="list-disc list-inside text-[var(--foreground)] mt-2 space-y-1">
             <li>Upcoming for Summer 2026!</li>
             <li>AI and Data Analytics team</li>

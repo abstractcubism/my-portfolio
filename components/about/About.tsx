@@ -1,8 +1,7 @@
 'use client';
 
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { MdOutlineEmail } from 'react-icons/md';

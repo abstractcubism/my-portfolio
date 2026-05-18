@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import Image from 'next/image';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -50,16 +51,16 @@ export default function ProjectsClient() {
       gsap.fromTo(
         root.querySelectorAll('.hero-title .char-inner'),
         { yPercent: 115 },
-        { yPercent: 0, duration: 1.1, ease: 'power4.out', stagger: 0.03, delay: 0.1 }
+        { yPercent: 0, duration: 0.9, ease: 'power4.out', stagger: 0.025, delay: 0.05 }
       );
       gsap.fromTo(
         root.querySelectorAll('.hero-fade'),
         { opacity: 0, y: 14 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.1, delay: 0.55 }
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.08, delay: 0.28 }
       );
-      gsap.fromTo('.scroll-hint', { opacity: 0 }, { opacity: 1, duration: 0.6, delay: 1.1 });
+      gsap.fromTo('.scroll-hint', { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.6 });
       gsap.to('.scroll-hint', {
-        y: 8, repeat: -1, yoyo: true, duration: 1, ease: 'sine.inOut', delay: 1.8,
+        y: 8, repeat: -1, yoyo: true, duration: 1, ease: 'sine.inOut', delay: 1.2,
       });
 
       // ── Per-section ───────────────────────────────────────────────────
@@ -199,7 +200,7 @@ export default function ProjectsClient() {
                 className="hero-fade max-w-sm text-[var(--muted-foreground)] text-sm leading-relaxed"
                 style={{ opacity: 0 }}
               >
-                Things I've built — shipped products, LLM integrations, and high-craft web.
+                just some things I&apos;ve built :)
               </p>
               <div className="scroll-hint flex flex-col items-center gap-1.5 text-[var(--muted-foreground)] shrink-0 opacity-0">
                 <span className="font-mono text-[9px] tracking-widest uppercase">scroll</span>
@@ -214,7 +215,7 @@ export default function ProjectsClient() {
           <section
             key={project.number}
             id={`project-${project.number}`}
-            className="project-section relative z-[5] overflow-hidden border-b border-[var(--border)] bg-[var(--background)] px-8 md:px-20 py-28 md:py-40"
+            className="project-section relative z-[7] overflow-hidden border-b border-[var(--border)] bg-[var(--background)] px-8 md:px-20 py-28 md:py-40"
           >
             {/* Massive ghost number — parallaxes upward on scroll */}
             <div
@@ -350,13 +351,15 @@ export default function ProjectsClient() {
                       muted
                       loop
                       playsInline
+                      preload="none"
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                   ) : project.images?.[0] ? (
-                    <img
+                    <Image
                       src={project.images[0]}
                       alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                     />
                   ) : project.comingSoon ? (
                     /* ── Coming soon: terminal mockup (matches LoadAnimation style) ── */

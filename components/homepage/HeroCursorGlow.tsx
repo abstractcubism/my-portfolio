@@ -127,6 +127,28 @@ export default function HeroCursorGlow() {
       if (wrapperRef.current) {
         wrapperRef.current.style.transform = `translate(calc(${cur.current.x}px - 50%), calc(${cur.current.y}px - 50%))`;
         wrapperRef.current.style.opacity = String(opacityVal.current);
+
+        // Find which section the cursor is in and clip glow to that section's bounds
+        let activeRect: DOMRect | null = null;
+        for (const id of ['hero', 'contact']) {
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const r = el.getBoundingClientRect();
+          if (mouse.current.y >= r.top && mouse.current.y <= r.bottom) {
+            activeRect = r;
+            break;
+          }
+        }
+        if (activeRect) {
+          const clipTop = Math.max(0, activeRect.top - (cur.current.y - BLOB_RADIUS));
+          const clipBottom = Math.max(0, (cur.current.y + BLOB_RADIUS) - activeRect.bottom);
+          wrapperRef.current.style.clipPath =
+            clipTop > 0 || clipBottom > 0
+              ? `inset(${clipTop}px 0 ${clipBottom}px 0)`
+              : '';
+        } else {
+          wrapperRef.current.style.clipPath = '';
+        }
       }
 
       frameCount.current++;
@@ -152,19 +174,20 @@ export default function HeroCursorGlow() {
     };
     rafRef.current = requestAnimationFrame(tick);
 
+    const parentsSnapshot = modifiedParents.current;
     return () => {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('resize', refreshRects);
       window.removeEventListener('scroll', refreshRects);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
-      for (const parent of modifiedParents.current) {
+      for (const parent of parentsSnapshot) {
         parent.querySelectorAll('[data-word-glow]').forEach(span => {
           span.replaceWith(document.createTextNode(span.textContent || ''));
         });
         parent.normalize();
       }
-      modifiedParents.current.clear();
+      parentsSnapshot.clear();
     };
   }, [refreshRects]);
 
