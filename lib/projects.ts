@@ -22,7 +22,7 @@ export const PROJECTS: Project[] = [
       'Designed with a focus on interactive animation and clean design. Features a custom terminal boot sequence, a real-time ASCII cube rendered in a React component, and GSAP animations. Deployed on Vercel.',
     tags: ['Next.js', 'TypeScript', 'GSAP', 'Tailwind'],
     github: 'https://github.com/abstractcubism/my-portfolio',
-    live: null,
+    live: 'https://leahhami.dev',
     private: false,
     images: [],
   },

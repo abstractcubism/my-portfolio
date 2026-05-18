@@ -37,7 +37,7 @@ function getBaseUrl() {
       : `https://${vercelHost}`;
   }
 
-  return 'http://localhost:3000';
+  return 'https://leahhami.dev';
 }
 
 const baseUrl = getBaseUrl();
