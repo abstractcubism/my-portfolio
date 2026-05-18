@@ -9,10 +9,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ITEMS = [
   { period: 'Jun 2023',   role: 'CS & Eng Academy',   org: 'Voorhees HS',  edu: true  },
-  { period: 'May 2024–',  role: 'IT Head Supervisor',  org: 'Rutgers OIT',  edu: false },
-  { period: 'Jun 2025',   role: 'AI Engineer Intern',  org: 'CSG',          edu: false },
-  { period: 'Oct 2025–',  role: 'AI Technician Co-Op', org: 'CSG',          edu: false },
-  { period: 'Mar 2026–',  role: 'Full Stack Dev',       org: 'Taxflow',      edu: false },
+  { period: 'May 2024',  role: 'IT Head Supervisor',  org: 'Rutgers OIT',  edu: false },
+  { period: 'Jun 2025',   role: 'AI Engineer Intern',  org: 'Construction Specialties',          edu: false },
+  { period: 'Oct 2025',  role: 'AI Technician Co-Op', org: 'Construction Specialties',          edu: false },
+  { period: 'Mar 2026',  role: 'Full Stack Dev',       org: 'Taxflow',      edu: false },
+  { period: 'June 2026',   role: 'Technology Intern',  org: 'Macys',        edu: false },
   { period: 'May 2027',   role: 'B.S. BAIT + CS',      org: 'Rutgers',      edu: true  },
 ];
 
@@ -105,7 +106,7 @@ export default function HeroHistory() {
 
           {/* horizontal scroll wrapper for small screens */}
           <div className="overflow-x-auto -mx-6 px-6 [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
-            <div className="grid grid-cols-6 gap-4 min-w-[560px]">
+            <div className="grid grid-cols-7 gap-4 min-w-[640px]">
               {ITEMS.map((item, i) => (
                 <div
                   key={i}

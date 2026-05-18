@@ -9,6 +9,7 @@ export type Project = {
   private: boolean;
   images: string[];
   video?: string | null;
+  comingSoon?: boolean;
 };
 
 export const PROJECTS: Project[] = [
@@ -27,28 +28,28 @@ export const PROJECTS: Project[] = [
   },
   {
     number: '02',
-    title: 'Taxflow',
+    title: 'reroot',
     description:
-      'Full-stack tax workflow application built for an unannounced startup. React frontend, Supabase backend, Stripe payments, Clerk auth, and an LLM-based document identification pipeline.',
+      'reroot lets students match their way, whether it\'s the right roommate, the right home, or both, powered by adaptive AI.',
     details:
-      'Built the complete frontend in React and integrated Supabase for real-time database and authentication, Stripe for subscription payments, and Clerk for user management. Implemented a Python-based document processing pipeline using LLMs to classify and extract structured data from uploaded tax documents.',
-    tags: ['React', 'Supabase', 'Stripe', 'Python', 'LLM'],
-    github: null,
+      'Developed solo as part of a 4-person team for the Techstart 2026 competition in March, where the project placed in the top 5 and was evaluated by industry professionals. Reroot lets users browse and match with potential roommates or housing listings, with flexible filtering across both categories.',
+    tags: ['React', 'TypeScript', 'Flask', 'Tailwind', 'OpenAI', 'Docker'],
+    github: 'https://github.com/abstractcubism/reroot-app',
     live: null,
-    private: true,
+    private: false,
     images: [],
+    video: '/demoVideos/ReRootDemo.mov',
   },
   {
     number: '03',
-    title: 'Data Analytics Assistant',
-    description:
-      'Internal AI assistant built in Microsoft AI Foundry during an internship at Construction Specialties. Connected to SuperScreen DB + Microsoft Fabric; supports natural-language SQL querying over large purchase order datasets.',
-    details:
-      "Developed during a summer internship at Construction Specialties. The assistant connects to the company's SuperScreen database and Microsoft Fabric data warehouse, enabling analysts to query purchase order data using plain English. Built with Azure AI Foundry's agent framework and deployed internally to the data analytics team.",
-    tags: ['Azure AI Foundry', 'Python', 'SQL', 'Microsoft Fabric'],
+    title: 'Coming Soon',
+    description: 'Something new is in the works... generating description...',
+    details: 'Stay tuned!',
+    tags: [],
     github: null,
     live: null,
-    private: true,
+    private: false,
     images: [],
+    comingSoon: true,
   },
 ];

@@ -8,8 +8,9 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
-      <TechStack />
-      <History />
+      <TechStack>
+        <History />
+      </TechStack>
       <Projects />
       <Footer />
     </main>

@@ -204,7 +204,7 @@ export default function Navbar() {
                     href={href}
                     prefetch
                     onClick={(event) => handleSectionNav(event, href, sectionId)}
-                    className="relative font-mono text-[12px] tracking-[0.2em] uppercase transition-colors duration-200 group"
+                    className="relative font-mono text-[12px] tracking-[0.2em] transition-colors duration-200 group"
                     style={{ color: isActive ? 'var(--color-accent)' : 'var(--muted-foreground)' }}
                   >
                     <span className="group-hover:text-[var(--color-accent)] transition-colors duration-200">

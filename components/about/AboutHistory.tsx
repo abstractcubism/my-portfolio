@@ -21,6 +21,21 @@ export default function History() {
       ),
     },
     {
+      title: "June 2026 – August 2026",
+      content: (
+        <div>
+          <h3 className="text-lg font-semibold text-[var(--color-accent)]">
+            Technology Intern
+          </h3>
+          <p className="text-[var(--muted-foreground)]">Macy's</p>
+          <ul className="list-disc list-inside text-[var(--foreground)] mt-2 space-y-1">
+            <li>Upcoming for Summer 2026!</li>
+            <li>AI and Data Analytics team</li>
+          </ul>
+        </div>
+      ),
+    },
+    {
       title: "March 2026 – Present",
       content: (
         <div>
@@ -37,7 +52,7 @@ export default function History() {
       ),
     },
     {
-      title: "October 2025 – Present",
+      title: "October 2025 – May 2026",
       content: (
         <div>
           <h3 className="text-lg font-semibold text-[var(--color-accent)]">

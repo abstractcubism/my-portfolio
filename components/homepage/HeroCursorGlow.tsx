@@ -191,7 +191,7 @@ export default function HeroCursorGlow() {
           height: 680,
           borderRadius: '50%',
           pointerEvents: 'none',
-          zIndex: 4,
+          zIndex: 2,
           filter: 'url(#glow-noise)',
           background: `radial-gradient(
             circle at 50% 50%,

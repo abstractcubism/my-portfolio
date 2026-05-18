@@ -36,19 +36,19 @@ const ICON_MAP: Record<string, IconType> = {
 const STACK = [
   {
     category: 'languages',
-    items: ['Python', 'TypeScript', 'JavaScript', 'Java', 'C++', 'SQL', 'R'],
+    items: ['Python', 'Java', 'C', 'SQL', 'R'],
   },
   {
     category: 'ai / ml',
-    items: ['PyTorch', 'scikit-learn', 'Azure AI Foundry', 'LangChain', 'LLMs', 'MCP'],
+    items: ['Microsoft AI Foundry','MCP', 'scikit-learn',  'LangChain', 'RAG' ],
   },
   {
     category: 'web',
-    items: ['React', 'Next.js', 'Tailwind CSS', 'GSAP', 'Framer Motion', 'Supabase'],
+    items: ['React', 'Next.js', 'Tailwind CSS', 'GSAP', ],
   },
   {
     category: 'tools',
-    items: ['Git', 'Docker', 'ServiceNow', 'Microsoft Fabric', 'Stripe', 'Clerk'],
+    items: ['Git', 'Docker', 'ServiceNow', 'Microsoft Fabric', 'Stripe', 'Clerk','Supabase'],
   },
 ];
 

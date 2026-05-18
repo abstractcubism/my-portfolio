@@ -55,14 +55,14 @@ export const metadata: Metadata = {
     description: 'Projects, experience, and contact.',
     url: baseUrl,
     siteName: 'Leah Hamilton',
-    images: ['/hero1.jpg'],
+    images: ['/LH.png'],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Leah Hamilton — Portfolio',
     description: 'Projects, experience, and contact.',
-    images: ['/hero1.jpg'],
+    images: ['/LH.png'],
   },
 };
 

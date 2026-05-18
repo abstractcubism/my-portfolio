@@ -3,25 +3,27 @@
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 type InterestItem = {
   id: string;
   title: string;
-  detail: string;
   description: string;
   color: string;
   pos: { x: number; y: number }; // % of sticker container (right column)
   rotation: number;
-  emoji: string;
+  stickerSrc: string;
+  size?: number;
+  credit?: { label: string; url: string };
 };
 
 type ConcertPhoto = {
   src: string;
   artist: string;
-  venue: string;
   rotation: number;
+  objectPosition?: string;
 };
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -30,75 +32,171 @@ const INTERESTS: InterestItem[] = [
   {
     id: 'creative',
     title: 'creative',
-    detail: 'default setting — ideas first',
     description:
-      'Default mode. Whether designing a UI, architecting a system, or sketching on a whiteboard — creativity is always where it starts.',
+      'I always try to include creativity in anything I work on. From this website to design work for previous roles, my experience with the Adobe Creative Cloud Suite helps me across all of my projects. The stickers in this section were made by me!',
     color: '#c4b5fd',
-    pos: { x: 18, y: 10 },
+    pos: { x: 26, y: 12 },
     rotation: -8,
-    emoji: '✦',
+    stickerSrc: '/stickers/adobesticker.png',
+    size: 80,
   },
   {
     id: 'concerts',
     title: 'concert attendee',
-    detail: 'live volume — worth the ringing ears',
     description:
-      "Front row whenever possible. There's nothing like the physical energy of live music — the kind you feel in your chest before you even hear it.",
+      "There's almost never a moment when I'm not listening to music, and getting to see artists live is one of my favorite things. Below you can find some pictures I took at concerts I've been to recently!",
     color: '#fb7185',
-    pos: { x: 60, y: 6 },
+    pos: { x: 58, y: 10 },
     rotation: 6,
-    emoji: '♪',
+    stickerSrc: '/stickers/TAMEIMPALASTICKER.png',
+    size: 240,
   },
   {
     id: 'matcha',
     title: 'matcha enjoyer',
-    detail: 'daily ritual — whisked > shaken',
     description:
-      'Ceremonial grade, daily ritual. Homemade beats any café version. The ten minutes it takes to make is a feature, not a bug.',
+      "I'm always looking for new matcha spots, when I'm not at home whisking my own. Some of my favorite matcha pairings are a mango matcha latte or matcha beignets!",
     color: '#6ee7b7',
-    pos: { x: 12, y: 52 },
+    pos: { x: 24, y: 52 },
     rotation: 4,
-    emoji: '◈',
+    stickerSrc: '/stickers/matchasticker.png',
   },
   {
     id: 'overwatch',
-    title: 'diamond in OW2',
-    detail: 'competitive mode — queueing support',
+    title: 'overwatch',
     description:
-      'Hit Diamond as a support main. Coordinating randoms under pressure turns out to be great practice for real-world teamwork.',
+      "I love video games, especially Overwatch! This sticker is of Juno, my main as a support player who recently hit diamond. I'm also a big fan of Valorant, Destiny 2, Hades, and Balatro!",
     color: '#93c5fd',
-    pos: { x: 54, y: 50 },
+    pos: { x: 56, y: 48 },
     rotation: -5,
-    emoji: '◆',
+    stickerSrc: '/stickers/profilesticker.png',
+    size: 140,
+    credit: { label: '@Tsugumi_uwu', url: 'https://x.com/Tsugumi_uwu/status/1928739220765683767?s=20' },
   },
   {
     id: 'restaurants',
     title: 'restaurant connoisseur',
-    detail: 'city notes — always taking recs',
     description:
-      'New spot every week. NYC has too many great restaurants to eat at the same place twice — the list is always growing.',
+      "I'm always on the hunt for a new restaurant, cafe, or dessert spot to try so I can add them to my Beli account. On the reciept, you can see some of my favorite haunts, as well as a total of how many spots I tried in 2025. Here's to many more this year!",
     color: '#fcd34d',
-    pos: { x: 32, y: 80 },
+    pos: { x: 36, y: 60 },
     rotation: 7,
-    emoji: '✿',
+    stickerSrc: '/stickers/recieptsticker.png',
+    size: 240,
   },
 ];
 
-// Replace src paths and fill in artist/venue once you have concert photos
 const CONCERT_PHOTOS: ConcertPhoto[] = [
-  { src: '/hero1.jpg', artist: 'Artist Name', venue: 'Venue · City', rotation: -5 },
-  { src: '/hero2.jpg', artist: 'Artist Name', venue: 'Venue · City', rotation: 3 },
-  { src: '/hero3.jpg', artist: 'Artist Name', venue: 'Venue · City', rotation: -2 },
-  { src: '/hero4.jpg', artist: 'Artist Name', venue: 'Venue · City', rotation: 4 },
-  { src: '/hero5.jpg', artist: 'Artist Name', venue: 'Venue · City', rotation: -3 },
-  { src: '/hero6.jpg', artist: 'Artist Name', venue: 'Venue · City', rotation: 5 },
+  { src: '/concertPhotos/twice.JPEG', artist: 'twice', rotation: -9, objectPosition: 'center' },
+  { src: '/concertPhotos/tame.JPEG', artist: 'tame impala', rotation: 6, objectPosition: 'center' },
+  { src: '/concertPhotos/pink.JPEG', artist: 'pinkpantheress', rotation: -3, objectPosition: 'center 60%' },
+  { src: '/concertPhotos/jane.JPEG', artist: 'baby jane', rotation: 11, objectPosition: 'center' },
+  { src: '/concertPhotos/tyler.JPEG', artist: 'tyler, the creator', rotation: -7, objectPosition: 'center' },
+  { src: '/concertPhotos/ian.JPEG', artist: 'dpr ian', rotation: 4, objectPosition: 'center 70%' },
 ];
+
+// ─── Design work ─────────────────────────────────────────────────────────────
+
+type DesignPiece = {
+  src: string;
+  title: string;
+  kind: string;
+};
+
+const DESIGN_PIECES: DesignPiece[] = [
+  { src: '/graphicDesignSamples/kt-menu.webp', title: 'KT Menu', kind: 'Menu' },
+  { src: '/graphicDesignSamples/oit-picnic.webp', title: 'OIT Picnic', kind: 'Poster' },
+  { src: '/graphicDesignSamples/game-night.webp', title: 'Game Night', kind: 'Poster' },
+];
+
+function DesignGallery() {
+  const [lightbox, setLightbox] = useState<DesignPiece | null>(null);
+
+  const lightboxEl = (
+    <AnimatePresence>
+      {lightbox && (
+        <motion.div
+          key="lightbox"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          onClick={() => setLightbox(null)}
+        >
+          <motion.div
+            initial={{ y: -80, opacity: 0, rotate: -3 }}
+            animate={{ y: 0, opacity: 1, rotate: 0 }}
+            exit={{ y: 40, opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="relative max-h-[85vh] max-w-[85vw]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative overflow-hidden rounded-sm shadow-2xl" style={{ width: 'min(520px, 85vw)', height: 'min(75vh, 693px)' }}>
+              <Image
+                src={lightbox.src}
+                alt={lightbox.title}
+                fill
+                className="object-contain"
+                sizes="520px"
+              />
+            </div>
+            <div className="mt-3 flex items-baseline gap-2">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#c4b5fd]">{lightbox.kind}</p>
+              <p className="font-mono text-[10px] text-[var(--muted-foreground)]">{lightbox.title}</p>
+            </div>
+            <button
+              onClick={() => setLightbox(null)}
+              className="absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full bg-white/10 font-mono text-xs text-white hover:bg-white/20 transition-colors"
+            >
+              ✕
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+
+  return (
+    <>
+      <div className="mt-5 flex gap-3">
+        {DESIGN_PIECES.map((piece, i) => (
+          <motion.button
+            key={piece.src}
+            initial={{ opacity: 0, y: -60, rotate: (i - 1) * 4 }}
+            animate={{ opacity: 1, y: 0, rotate: 0 }}
+            transition={{ delay: 0.05 + i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            onClick={() => setLightbox(piece)}
+            className="group shrink-0 text-left focus:outline-none"
+          >
+            <div className="relative overflow-hidden rounded-sm bg-white/5 border border-white/10 transition-all duration-200 group-hover:border-[#c4b5fd]/40 group-hover:scale-[1.03]" style={{ width: '130px', height: '174px' }}>
+              <Image
+                src={piece.src}
+                alt={piece.title}
+                fill
+                className="object-cover"
+                sizes="130px"
+              />
+            </div>
+            <p className="mt-1.5 font-mono text-[7.5px] text-[var(--muted-foreground)] truncate w-[130px]">
+              {piece.kind}
+            </p>
+          </motion.button>
+        ))}
+      </div>
+
+      {typeof window !== 'undefined' && createPortal(lightboxEl, document.body)}
+    </>
+  );
+}
 
 // ─── Concert polaroids ────────────────────────────────────────────────────────
 
+const POLAROID_OFFSETS = [0, -16, 12, -20, 10, -8];
+
 function ConcertPolaroids() {
   return (
-    <div className="mt-5 flex flex-wrap gap-3">
+    <div className="mt-5 flex flex-wrap gap-3 overflow-visible px-4 pb-8">
       {CONCERT_PHOTOS.map((photo, i) => (
         <motion.div
           key={photo.src}
@@ -106,25 +204,25 @@ function ConcertPolaroids() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ delay: 0.06 + i * 0.07, duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
           className="shrink-0 hover:scale-105 transition-transform duration-200"
-          style={{ rotate: photo.rotation }}
+          style={{
+            rotate: photo.rotation,
+            translateY: POLAROID_OFFSETS[i] ?? 0,
+          }}
         >
-          {/* Polaroid frame */}
-          <div className="bg-white p-1.5 pb-7 shadow-[0_6px_22px_rgba(0,0,0,0.38)]">
-            <div className="relative overflow-hidden" style={{ width: '92px', height: '92px' }}>
+          <div className="bg-white/90 p-[3px] pb-4 shadow-[0_4px_14px_rgba(0,0,0,0.28)]">
+            <div className="relative overflow-hidden" style={{ width: '108px', height: '108px' }}>
               <Image
                 src={photo.src}
                 alt={photo.artist}
                 fill
                 className="object-cover"
-                sizes="92px"
+                style={{ objectPosition: photo.objectPosition ?? 'center' }}
+                sizes="108px"
               />
             </div>
-            <div className="mt-1.5 px-0.5 text-center">
-              <p className="truncate font-mono text-[7.5px] leading-tight text-gray-700">
-                {photo.artist}
-              </p>
-              <p className="truncate font-mono text-[6.5px] text-gray-400">{photo.venue}</p>
-            </div>
+            <p className="mt-1 truncate text-center font-mono text-[6.5px] leading-tight text-gray-600 px-0.5">
+              {photo.artist}
+            </p>
           </div>
         </motion.div>
       ))}
@@ -147,7 +245,6 @@ function Sticker({
   onSelect,
   onHoverStart,
   onHoverEnd,
-  shouldReduceMotion,
 }: {
   item: InterestItem;
   index: number;
@@ -156,13 +253,13 @@ function Sticker({
   onSelect: () => void;
   onHoverStart: () => void;
   onHoverEnd: () => void;
-  shouldReduceMotion: boolean | null;
 }) {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const dragging = useRef(false);
   const movedPx = useRef(0);
   const lastPos = useRef({ x: 0, y: 0 });
   const isActive = isSelected || isHovered;
+  const size = item.size ?? 128;
 
   return (
     // Outer plain div — owns absolute position + drag via raw CSS transform (no framer conflict)
@@ -198,63 +295,29 @@ function Sticker({
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
     >
-      {/* Inner motion.div — entrance animation only (opacity + scale, no x/y/rotate) */}
-      <motion.div
-        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.6 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, amount: 0.05 }}
-        transition={{ duration: 0.5, delay: 0.2 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {/* Active-state scale */}
-        <motion.div
-          animate={{ scale: isActive ? 1.1 : 1 }}
-          transition={{ duration: 0.18 }}
-          className="relative select-none"
+      <div className="relative select-none">
+        <div
+          className="relative overflow-visible"
+          style={{
+            width: `${size}px`,
+            height: `${size}px`,
+            filter: isSelected
+              ? `drop-shadow(0 0 12px ${item.color}) drop-shadow(0 8px 20px ${item.color}88) drop-shadow(0 2px 8px rgba(0,0,0,0.4))`
+              : isHovered
+              ? `drop-shadow(0 8px 18px ${item.color}55) drop-shadow(0 2px 8px rgba(0,0,0,0.4))`
+              : 'drop-shadow(0 4px 12px rgba(0,0,0,0.35))',
+          }}
         >
-          {/* Placeholder sticker — swap for <Image src={item.stickerSrc} fill /> once PNGs are ready */}
-          <div
-            className="flex flex-col items-center justify-between gap-1 rounded-2xl border p-3"
-            style={{
-              width: '88px',
-              height: '88px',
-              backgroundColor: `${item.color}14`,
-              borderColor: `${item.color}50`,
-              backdropFilter: 'blur(10px)',
-              boxShadow: isActive
-                ? `0 8px 28px ${item.color}45, 0 2px 10px rgba(0,0,0,0.35)`
-                : '0 4px 16px rgba(0,0,0,0.3)',
-            }}
-          >
-            <div
-              className="flex h-10 w-10 items-center justify-center rounded-xl text-xl"
-              style={{ background: `${item.color}22`, color: item.color }}
-            >
-              {item.emoji}
-            </div>
-            <p
-              className="line-clamp-2 text-center font-mono text-[7px] leading-tight"
-              style={{ color: item.color }}
-            >
-              {item.title}
-            </p>
-          </div>
-
-          {/* Selection ring — only on click-pinned, not hover */}
-          <AnimatePresence>
-            {isSelected && (
-              <motion.div
-                key="ring"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.18 }}
-                className="pointer-events-none absolute -inset-2 rounded-[22px] border-2"
-                style={{ borderColor: item.color }}
-              />
-            )}
-          </AnimatePresence>
-        </motion.div>
-      </motion.div>
+          <Image
+            src={item.stickerSrc}
+            alt={item.title}
+            fill
+            className="object-contain select-none"
+            sizes={`${size}px`}
+            draggable={false}
+          />
+        </div>
+      </div>
     </div>
   );
 }
@@ -297,16 +360,25 @@ function InfoPanel({
             >
               {interest.title}
             </h2>
-            <p
-              className="mb-4 font-mono text-[10px] uppercase tracking-[0.24em]"
-              style={{ color: interest.color }}
-            >
-              {interest.detail}
-            </p>
             <p className="max-w-sm text-sm leading-relaxed text-[var(--muted-foreground)]">
               {interest.description}
             </p>
 
+            {interest.credit && (
+              <p className="mt-3 font-mono text-[9px] text-[var(--muted-foreground)] opacity-60">
+                sticker art by{' '}
+                <a
+                  href={interest.credit.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:opacity-100 transition-opacity"
+                >
+                  {interest.credit.label}
+                </a>
+              </p>
+            )}
+
+            {interest.id === 'creative' && <DesignGallery />}
             {interest.id === 'concerts' && <ConcertPolaroids />}
           </motion.div>
         ) : (
@@ -328,6 +400,9 @@ function InfoPanel({
             >
               decorate<br />my laptop!
             </h2>
+            <p className="mt-4 text-sm leading-relaxed text-[var(--muted-foreground)]">
+              drag to move the stickers around,<br />(or click on them to find out more :)
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -431,7 +506,6 @@ export default function AboutInterests() {
                   }
                   onHoverStart={() => setHoveredId(item.id)}
                   onHoverEnd={() => setHoveredId(null)}
-                  shouldReduceMotion={shouldReduceMotion}
                 />
               </div>
             ))}

@@ -113,8 +113,8 @@ export default function Hero() {
           className="relative z-10 flex flex-col justify-center h-full"
           style={{ maxWidth: '42vw' }}
         >
-          <p className="text-base md:text-lg text-[var(--muted-foreground)] font-medium mb-2 tracking-wide">
-            Hi, I&apos;m
+          <p className="text-base md:text-lg text-[var(--muted-foreground)]  tracking-wide">
+            hi, i&apos;m
           </p>
 
           <h1

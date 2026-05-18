@@ -22,8 +22,8 @@ function CharReveal({ text, className }: { text: string; className?: string }) {
             display: 'inline-block',
             overflow: 'hidden',
             verticalAlign: 'bottom',
-            paddingTop: '0.06em',
-            paddingBottom: '0.18em',
+            paddingTop: '0.18em',
+            paddingBottom: '0.22em',
             paddingLeft: '0.08em',
             paddingRight: '0.12em',
             marginLeft: '-0.04em',
@@ -179,7 +179,6 @@ export default function ProjectsClient() {
               className="hero-fade font-mono text-xs tracking-widest uppercase text-[var(--muted-foreground)]"
               style={{ opacity: 0 }}
             >
-              Selected work
             </p>
 
             <h1
@@ -200,7 +199,7 @@ export default function ProjectsClient() {
                 className="hero-fade max-w-sm text-[var(--muted-foreground)] text-sm leading-relaxed"
                 style={{ opacity: 0 }}
               >
-                Full-stack apps, AI tooling, and web experiences.
+                Things I've built — shipped products, LLM integrations, and high-craft web.
               </p>
               <div className="scroll-hint flex flex-col items-center gap-1.5 text-[var(--muted-foreground)] shrink-0 opacity-0">
                 <span className="font-mono text-[9px] tracking-widest uppercase">scroll</span>
@@ -214,6 +213,7 @@ export default function ProjectsClient() {
         {PROJECTS.map((project, i) => (
           <section
             key={project.number}
+            id={`project-${project.number}`}
             className="project-section relative z-[5] overflow-hidden border-b border-[var(--border)] bg-[var(--background)] px-8 md:px-20 py-28 md:py-40"
           >
             {/* Massive ghost number — parallaxes upward on scroll */}
@@ -275,14 +275,17 @@ export default function ProjectsClient() {
 
                 {/* Description */}
                 <p
-                  className="proj-desc text-[var(--muted-foreground)] leading-relaxed"
-                  style={{ opacity: 0 }}
+                  className="proj-desc leading-relaxed"
+                  style={{ opacity: 0, fontWeight: 300, letterSpacing: '0.01em', color: 'var(--color-accent)' }}
                 >
                   {project.description}
                 </p>
 
                 {/* Details */}
-                <p className="proj-details text-sm leading-relaxed" style={{ opacity: 0 }}>
+                <p
+                  className="proj-details text-sm leading-relaxed"
+                  style={{ opacity: 0, fontWeight: 300, letterSpacing: '0.01em' }}
+                >
                   {project.details}
                 </p>
 
@@ -355,6 +358,39 @@ export default function ProjectsClient() {
                       alt={project.title}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
+                  ) : project.comingSoon ? (
+                    /* ── Coming soon: terminal mockup (matches LoadAnimation style) ── */
+                    <div className="absolute inset-0 flex flex-col bg-[var(--background)]">
+                      {/* Title bar — identical to LoadAnimation */}
+                      <div
+                        className="flex items-center gap-2 px-4 h-9 border-b border-[var(--border)] shrink-0"
+                        style={{ background: 'oklch(0.93 0.016 85)' }}
+                      >
+                        <span className="w-3 h-3 rounded-full bg-[#FF5F57]" />
+                        <span className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
+                        <span className="w-3 h-3 rounded-full bg-[#28C840]" />
+                        <span className="ml-auto font-mono text-xs text-[var(--muted-foreground)] tracking-wide">
+                          leah@portfolio ~
+                        </span>
+                      </div>
+                      {/* Terminal body */}
+                      <div className="flex-1 px-5 py-5 font-mono text-[13px] leading-6 bg-[var(--background)]">
+                        {[
+                          '* context loaded',
+                          '* dependencies resolved',
+                          '* vibes immaculate',
+                        ].map((line, i) => (
+                          <div key={i} style={{ color: 'var(--muted-foreground)' }}>{line}</div>
+                        ))}
+                        <div className="flex items-center" style={{ color: 'var(--foreground)' }}>
+                          <span>* cooking something up...</span>
+                          <span
+                            className="inline-block ml-px animate-pulse"
+                            style={{ width: 7, height: 14, background: 'var(--color-accent)' }}
+                          />
+                        </div>
+                      </div>
+                    </div>
                   ) : (
                     /* ── Placeholder: browser-chrome mockup ── */
                     <div className="absolute inset-0 flex flex-col bg-[var(--background)]">
