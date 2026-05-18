@@ -102,16 +102,15 @@ export default function Hero() {
         }}
       />
 
-      {/* ASCII Cube */}
-      <div className="absolute right-0 top-0 h-full w-[65%] flex items-center justify-center overflow-hidden z-[6]">
+      {/* ASCII Cube — hidden on mobile so text has room */}
+      <div className="hidden md:flex absolute right-0 top-0 h-full w-[65%] items-center justify-center overflow-hidden z-[6]">
         <AsciiCube />
       </div>
 
       {/* Text Content */}
       <div className="max-w-6xl mx-auto h-full px-6">
         <div
-          className="relative z-10 flex flex-col justify-center h-full"
-          style={{ maxWidth: '42vw' }}
+          className="relative z-10 flex flex-col justify-center h-full md:max-w-[42vw]"
         >
           <p className="text-base md:text-lg text-[var(--muted-foreground)]  tracking-wide">
             hi, i&apos;m

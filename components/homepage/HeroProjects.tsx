@@ -90,7 +90,7 @@ export default function Projects() {
         {/* Scrolling track */}
         <div
           ref={trackRef}
-          className="flex items-center gap-6 pl-[10vw] pr-[10vw] h-screen"
+          className="flex items-center gap-6 pl-[5vw] pr-[5vw] md:pl-[10vw] md:pr-[10vw] h-screen"
           style={{ width: `${PROJECTS.length * 80 + 20}vw` }}
         >
           {PROJECTS.map((p, i) => (
@@ -98,7 +98,7 @@ export default function Projects() {
               key={p.number}
               ref={(el) => { cardsRef.current[i] = el; }}
               onClick={() => router.push(`/projects#project-${p.number}`)}
-              className="group relative flex-shrink-0 w-[70vw] max-w-2xl h-[60vh] max-h-[520px] rounded-2xl border border-[var(--border)] bg-[var(--background)] flex flex-col justify-between p-10 cursor-pointer hover:border-[var(--color-accent)] transition-colors duration-300"
+              className="group relative flex-shrink-0 w-[82vw] md:w-[70vw] max-w-2xl h-[60vh] max-h-[520px] rounded-2xl border border-[var(--border)] bg-[var(--background)] flex flex-col justify-between p-6 md:p-10 cursor-pointer hover:border-[var(--color-accent)] transition-colors duration-300"
               style={{ boxShadow: '0 16px 48px oklch(0.1 0 0 / 0.06)' }}
             >
               {/* Top row */}

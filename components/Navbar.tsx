@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import type { MouseEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { FaLinkedin, FaGithub } from 'react-icons/fa';
+import { FaLinkedin, FaGithub, FaBars, FaTimes } from 'react-icons/fa';
 
 type NavLink = {
   label: string;
@@ -37,6 +37,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const shouldReduceMotion = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [secretBurstKey, setSecretBurstKey] = useState(0);
   const [secretParticles, setSecretParticles] = useState<SecretParticle[]>([]);
   const hideSecretTimeoutRef = useRef<number | null>(null);
@@ -53,6 +54,10 @@ export default function Navbar() {
     router.prefetch('/about');
     router.prefetch('/resume');
   }, [router]);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     return () => {
@@ -244,8 +249,73 @@ export default function Navbar() {
               <FaGithub style={{ width: '1rem', height: '1rem' }} />
             </motion.a>
           </div>
+
+          <button
+            type="button"
+            className="sm:hidden flex items-center justify-center w-8 h-8 text-[var(--muted-foreground)] hover:text-[var(--color-accent)] transition-colors duration-200"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-label="Toggle navigation menu"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {mobileMenuOpen ? (
+                <motion.span
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.18 }}
+                >
+                  <FaTimes style={{ width: '1rem', height: '1rem' }} />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="open"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.18 }}
+                >
+                  <FaBars style={{ width: '1rem', height: '1rem' }} />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </button>
         </div>
       </div>
+
+      {/* Mobile dropdown menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            className="sm:hidden overflow-hidden border-t border-[var(--border)]"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+          >
+            <nav className="max-w-6xl mx-auto px-6 py-5 flex flex-col gap-1">
+              {NAV_LINKS.map(({ label, href, sectionId }) => {
+                const isActive = pathname === href;
+                return (
+                  <Link
+                    key={label}
+                    href={href}
+                    prefetch
+                    onClick={(event) => {
+                      handleSectionNav(event, href, sectionId);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="font-mono text-[13px] tracking-[0.18em] py-3 border-b border-[var(--border)] last:border-0 transition-colors duration-200"
+                    style={{ color: isActive ? 'var(--color-accent)' : 'var(--muted-foreground)' }}
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

@@ -104,7 +104,7 @@ export default function About() {
             data-no-glow="true"
             className="relative z-20 flex flex-col items-start gap-6"
           >
-            <div className="relative z-20 mx-auto h-[430px] w-full max-w-[38rem] isolate md:h-[500px]">
+            <div className="relative z-20 mx-auto h-[430px] w-full max-w-[38rem] isolate md:h-[500px] overflow-hidden">
               <motion.div
                 className="pointer-events-none absolute left-[8%] top-[10%] h-28 w-28 rounded-full bg-[var(--color-accent-subtle)] blur-3xl"
                 animate={shouldReduceMotion ? undefined : { scale: [1, 1.16, 1], opacity: [0.55, 0.8, 0.55] }}

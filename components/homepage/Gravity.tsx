@@ -51,7 +51,8 @@ function calcPos(
   }
   return typeof value === 'number'
     ? value
-    : elementSize - containerSize + elementSize / 2;
+    : // default: center the element in the container
+      containerSize / 2 - elementSize / 2;
 }
 
 const GravityCtx = createContext<{
@@ -225,6 +226,12 @@ export const Gravity = forwardRef<
           friction: 1,
         }),
       ]);
+
+      // Bodies registered by children before the engine was ready (child effects
+      // run before parent effects in React) need to be added to the world now.
+      bodies.current.forEach(({ body }) => {
+        World.add(engine.current!.world, [body]);
+      });
 
       runnerRef.current = Runner.create();
       syncElements();
